@@ -18,7 +18,11 @@ import {
 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-const Index = () => {
+/**
+ * Dashboard page for logged-in users showing tools, stats, and activity
+ * Focused on functionality and quick access to tools
+ */
+const Dashboard = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
@@ -224,10 +228,10 @@ const Index = () => {
       {/* Welcome Section */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">
-          Welcome to FinTools.AI
+          Welcome to Your Dashboard
         </h1>
         <p className="text-muted-foreground text-lg">
-          Your comprehensive suite of financial tools and automation
+          Access your financial tools and track your business performance
         </p>
       </div>
 
@@ -285,7 +289,7 @@ const Index = () => {
                 size="sm"
                 onClick={() => {
                   setSearchQuery("");
-                  navigate("/");
+                  navigate("/dashboard");
                 }}
               >
                 Clear Search
@@ -352,4 +356,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Dashboard;

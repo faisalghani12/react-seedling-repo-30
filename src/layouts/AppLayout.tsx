@@ -16,6 +16,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   const navLinks = [
     { to: "/", label: "Home" },
+    { to: "/dashboard", label: "Dashboard" },
     { to: "/templates", label: "Templates" },
     { to: "/pricing", label: "Pricing" },
     { to: "/api-docs", label: "API Docs" },
@@ -25,8 +26,8 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   const handleToolsSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && toolsSearchQuery.trim()) {
-      // Navigate to homepage with search parameter
-      navigate(`/?search=${encodeURIComponent(toolsSearchQuery.trim())}`);
+      // Navigate to dashboard with search parameter
+      navigate(`/dashboard?search=${encodeURIComponent(toolsSearchQuery.trim())}`);
       setToolsSearchQuery("");
       setMobileMenuOpen(false);
     }
