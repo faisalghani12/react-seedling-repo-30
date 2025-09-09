@@ -15,7 +15,15 @@ import {
   CheckCircle,
   Quote,
   Globe,
-  Zap
+  Zap,
+  Calculator,
+  Scan,
+  BarChart3,
+  DollarSign,
+  PieChart,
+  Target,
+  Brain,
+  Sparkles
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -78,6 +86,58 @@ const Home = () => {
     { value: "99.9%", label: "Uptime SLA", subtext: "Reliable service" },
     { value: "4.9★", label: "User Rating", subtext: "1,200+ reviews" },
     { value: "150+", label: "Countries", subtext: "Global reach" }
+  ];
+
+  const premiumTools = [
+    {
+      icon: FileText,
+      title: "Invoice Generator",
+      description: "Create professional invoices with customizable templates and automated calculations",
+      features: ["500+ Templates", "PDF Export", "Multi-currency", "Brand Customization"],
+      badge: "Most Popular"
+    },
+    {
+      icon: Calculator,
+      title: "Advanced P&L Calculator",
+      description: "Comprehensive profit & loss analysis with detailed financial breakdowns",
+      features: ["Revenue Analysis", "Expense Tracking", "Margin Calculations", "Export Reports"]
+    },
+    {
+      icon: Scan,
+      title: "AI Receipt Scanner",
+      description: "Extract data from receipts using advanced OCR and machine learning",
+      features: ["OCR Technology", "Auto Categorization", "Expense Tracking", "Cloud Storage"]
+    },
+    {
+      icon: BarChart3,
+      title: "Financial Report Generator",
+      description: "Generate comprehensive financial reports and business insights",
+      features: ["Custom Reports", "Visual Charts", "Export Options", "Trend Analysis"]
+    },
+    {
+      icon: DollarSign,
+      title: "Business Valuation Tool",
+      description: "Calculate your business value using multiple valuation methods",
+      features: ["DCF Analysis", "Market Multiples", "Asset Valuation", "Risk Assessment"]
+    },
+    {
+      icon: PieChart,
+      title: "Investment Tracker",
+      description: "Track and analyze your investment portfolio performance",
+      features: ["Portfolio Analytics", "Performance Metrics", "Risk Analysis", "Diversification"]
+    },
+    {
+      icon: Brain,
+      title: "Predictive Insights",
+      description: "AI-powered financial forecasting and business predictions",
+      features: ["Cash Flow Forecast", "Trend Prediction", "Risk Analysis", "Growth Modeling"]
+    },
+    {
+      icon: Target,
+      title: "Pricing Calculator",
+      description: "Optimize your pricing strategy with data-driven recommendations",
+      features: ["Competitive Analysis", "Margin Optimization", "Market Research", "Price Testing"]
+    }
   ];
 
   const pricingTiers = [
@@ -187,6 +247,76 @@ const Home = () => {
               Explore All Tools
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Tools Showcase */}
+      <section className="py-24 bg-gradient-to-b from-background to-muted/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Premium Financial Tools
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Complete Financial Management Suite
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Access professional-grade financial tools designed to streamline your business operations 
+              and drive growth. From invoicing to predictive analytics, we've got you covered.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {premiumTools.map((tool, index) => {
+              const Icon = tool.icon;
+              return (
+                <Card key={index} className="group border-0 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-1">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-12 h-12 bg-primary-gradient rounded-lg flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      {tool.badge && (
+                        <Badge variant="secondary" className="text-xs">
+                          {tool.badge}
+                        </Badge>
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {tool.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {tool.description}
+                    </p>
+                    <div className="space-y-1">
+                      {tool.features.slice(0, 3).map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2">
+                          <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
+                          <span className="text-xs text-muted-foreground">{feature}</span>
+                        </div>
+                      ))}
+                      {tool.features.length > 3 && (
+                        <div className="text-xs text-primary font-medium">
+                          +{tool.features.length - 3} more features
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          <div className="text-center">
+            <Button size="lg" onClick={() => navigate("/dashboard")} className="shadow-elegant group">
+              Explore All Tools
+              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <p className="text-sm text-muted-foreground mt-3">
+              All tools available in Professional and Enterprise plans
+            </p>
           </div>
         </div>
       </section>
