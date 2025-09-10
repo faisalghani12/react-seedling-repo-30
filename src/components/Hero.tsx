@@ -1,97 +1,126 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-invoice.jpg";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Play, CheckCircle, Star, TrendingUp, Shield, Globe } from "lucide-react";
 
 /**
- * Hero section component for the invoice generator landing page
- * Features gradient background, compelling copy, and action buttons
+ * Modern Hero section for professional financial tools suite
+ * European/USA market focused design with comprehensive tool showcase
  */
 export const Hero = () => {
+  const stats = [
+    { value: "500+", label: "Enterprise Clients", icon: TrendingUp },
+    { value: "99.9%", label: "Uptime SLA", icon: Shield },
+    { value: "150+", label: "Countries", icon: Globe }
+  ];
+
+  const trustIndicators = [
+    "SOC 2 Compliant",
+    "GDPR Ready", 
+    "Bank-Grade Security",
+    "24/7 Support"
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient">
-      {/* Background pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+      {/* Enhanced background with professional patterns */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%)] opacity-60" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.05),transparent_50%)]" />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto">
           
-          {/* Content */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-white/90 text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
-              FinTools.AI Invoice Generator
-            </div>
+          {/* Main Hero Content */}
+          <div className="text-center max-w-5xl mx-auto mb-16">
+            <Badge className="bg-glass-gradient backdrop-blur-sm border-white/20 text-white mb-8 px-6 py-2">
+              <Star className="w-4 h-4 mr-2" />
+              Enterprise Financial Management Suite
+            </Badge>
             
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Create Professional
-              <span className="block bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
-                Invoices in Minutes
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+              Complete Financial
+              <span className="block bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">
+                Operations Platform
               </span>
             </h1>
             
-            <p className="text-xl text-white/80 mb-8 max-w-2xl">
-              Design beautiful, branded invoices with our template-based editor. 
-              Generate PDFs instantly, manage versions, and streamline your billing workflow.
+            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Streamline invoicing, analyze profits, track investments, and predict business performance 
+              with our comprehensive suite of AI-powered financial tools trusted by enterprises worldwide.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <Button 
-                variant="default" 
                 size="lg" 
-                className="bg-white text-primary hover:bg-white/90 shadow-elegant group"
+                className="bg-white text-neutral-900 hover:bg-white/90 shadow-premium group px-8 py-4 text-lg font-semibold"
               >
-                Start Creating
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                Start Free Trial
+                <ArrowRight className="ml-3 w-6 h-6 transition-transform group-hover:translate-x-1" />
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg"
               >
-                <FileText className="mr-2 w-5 h-5" />
-                View Templates
+                <Play className="mr-3 w-6 h-6" />
+                Watch Demo
               </Button>
             </div>
-            
-            {/* Stats */}
-            <div className="flex items-center gap-8 mt-12 text-white/70">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">500+</div>
-                <div className="text-sm">Templates</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">50K+</div>
-                <div className="text-sm">Invoices Generated</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">99.9%</div>
-                <div className="text-sm">Uptime</div>
-              </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-6 mb-12">
+              {trustIndicators.map((indicator, index) => (
+                <div key={index} className="flex items-center gap-2 text-white/70">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <span className="text-sm font-medium">{indicator}</span>
+                </div>
+              ))}
             </div>
           </div>
           
-          {/* Hero Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-glow">
-              <img 
-                src={heroImage} 
-                alt="Professional invoice template preview" 
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-            
-            {/* Floating cards */}
-            <div className="absolute -top-6 -left-6 bg-white rounded-lg p-4 shadow-card">
-              <div className="w-8 h-8 bg-primary-gradient rounded-lg flex items-center justify-center">
-                <FileText className="w-4 h-4 text-white" />
+          {/* Stats Section */}
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="text-center group">
+                  <div className="bg-glass-gradient backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:shadow-glow">
+                    <div className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
+                    <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.value}</div>
+                    <div className="text-white/70 font-medium">{stat.label}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Platform Preview */}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="bg-glass-gradient backdrop-blur-sm rounded-3xl p-2 border border-white/10 shadow-premium">
+              <div className="bg-neutral-900 rounded-2xl p-8 min-h-[400px] flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-primary-gradient rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <TrendingUp className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Financial Dashboard</h3>
+                  <p className="text-white/60 max-w-md mx-auto">
+                    Unified view of all your financial operations, analytics, and business insights in one powerful platform.
+                  </p>
+                </div>
               </div>
             </div>
             
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-card">
-              <div className="text-sm font-medium text-foreground">PDF Ready</div>
-              <div className="text-xs text-muted-foreground">Export instantly</div>
+            {/* Floating Elements */}
+            <div className="absolute -top-6 -left-6 bg-white rounded-xl p-4 shadow-elegant hidden md:block">
+              <div className="text-sm font-semibold text-neutral-900">Invoice Generated</div>
+              <div className="text-xs text-neutral-600">+$12,500 Revenue</div>
+            </div>
+            
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-elegant hidden md:block">
+              <div className="text-sm font-semibold text-neutral-900">AI Insights</div>
+              <div className="text-xs text-neutral-600">Growth Prediction</div>
             </div>
           </div>
         </div>

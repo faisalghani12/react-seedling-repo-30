@@ -36,17 +36,33 @@ All colors MUST be HSL.
     --input: 220 13% 91%;
     --ring: 234 89% 74%;
 
-    /* Custom design tokens */
-    --primary-gradient: linear-gradient(135deg, hsl(234, 89%, 74%), hsl(259, 88%, 82%));
-    --surface-gradient: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(220, 14%, 98%));
-    --hero-gradient: linear-gradient(135deg, hsl(234, 89%, 74%), hsl(259, 88%, 82%), hsl(284, 87%, 78%));
+    /* Premium design tokens for European/USA markets */
+    --primary-gradient: linear-gradient(135deg, hsl(224, 71%, 4%) 0%, hsl(224, 71%, 12%) 50%, hsl(262, 83%, 58%) 100%);
+    --surface-gradient: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(220, 14%, 99%));
+    --hero-gradient: linear-gradient(135deg, hsl(224, 71%, 4%) 0%, hsl(224, 71%, 8%) 30%, hsl(262, 83%, 58%) 100%);
+    --feature-gradient: linear-gradient(135deg, hsl(220, 14%, 98%) 0%, hsl(224, 71%, 99%) 100%);
+    --glass-gradient: linear-gradient(135deg, hsla(0, 0%, 100%, 0.25) 0%, hsla(0, 0%, 100%, 0.1) 100%);
     
-    --shadow-elegant: 0 4px 24px -8px hsl(234 89% 74% / 0.2);
-    --shadow-card: 0 2px 16px -4px hsl(222 47% 11% / 0.08);
-    --shadow-glow: 0 0 32px hsl(234 89% 74% / 0.3);
+    --shadow-elegant: 0 8px 32px -8px hsl(224 71% 4% / 0.12);
+    --shadow-card: 0 4px 24px -4px hsl(224 71% 4% / 0.08);
+    --shadow-glow: 0 0 48px hsl(262 83% 58% / 0.15);
+    --shadow-premium: 0 16px 64px -12px hsl(224 71% 4% / 0.25);
     
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elastic: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Professional color palette */
+    --neutral-50: 220 14% 98%;
+    --neutral-100: 220 13% 95%;
+    --neutral-200: 220 13% 91%;
+    --neutral-300: 216 12% 84%;
+    --neutral-400: 218 11% 65%;
+    --neutral-500: 220 9% 46%;
+    --neutral-600: 215 14% 34%;
+    --neutral-700: 217 19% 27%;
+    --neutral-800: 215 28% 17%;
+    --neutral-900: 224 71% 4%;
 
     --radius: 0.5rem;
 
