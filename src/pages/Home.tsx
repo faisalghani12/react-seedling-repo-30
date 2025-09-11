@@ -79,7 +79,7 @@ const Home = () => {
       description: "Create stunning, branded invoices with 500+ templates and instant PDF generation",
       features: ["Custom Branding", "Multi-currency", "Automated Reminders", "Payment Integration"],
       category: "Core",
-      gradient: "from-blue-600 to-purple-600"
+      gradient: "primary-gradient"
     },
     {
       icon: Calculator,
@@ -87,7 +87,7 @@ const Home = () => {
       description: "Comprehensive profit & loss analysis with real-time financial insights and forecasting",
       features: ["Revenue Analysis", "Cost Optimization", "Margin Tracking", "Predictive Models"],
       category: "Analytics",
-      gradient: "from-emerald-600 to-teal-600"
+      gradient: "surface-gradient"
     },
     {
       icon: Scan,
@@ -95,7 +95,7 @@ const Home = () => {
       description: "Extract and categorize expense data automatically using advanced OCR technology",
       features: ["OCR Recognition", "Auto-categorization", "Expense Tracking", "Audit Trails"],
       category: "Automation",
-      gradient: "from-orange-600 to-red-600"
+      gradient: "hero-gradient"
     },
     {
       icon: BarChart3,
@@ -103,7 +103,7 @@ const Home = () => {
       description: "Generate comprehensive reports and visual dashboards for stakeholder communication",
       features: ["Custom Reports", "Visual Dashboards", "Export Options", "Compliance Ready"],
       category: "Reporting",
-      gradient: "from-indigo-600 to-blue-600"
+      gradient: "feature-gradient"
     },
     {
       icon: DollarSign,
@@ -111,7 +111,7 @@ const Home = () => {
       description: "Calculate enterprise value using multiple methodologies and market comparisons",
       features: ["DCF Analysis", "Market Multiples", "Risk Assessment", "Scenario Planning"],
       category: "Valuation",
-      gradient: "from-purple-600 to-pink-600"
+      gradient: "primary-gradient"
     },
     {
       icon: PieChart,
@@ -119,7 +119,7 @@ const Home = () => {
       description: "Track portfolio performance and analyze investment opportunities with precision",
       features: ["Portfolio Tracking", "Risk Analysis", "Performance Metrics", "Diversification"],
       category: "Investment",
-      gradient: "from-cyan-600 to-blue-600"
+      gradient: "glass-gradient"
     },
     {
       icon: Brain,
@@ -127,7 +127,7 @@ const Home = () => {
       description: "AI-powered forecasting and business predictions for strategic decision making",
       features: ["Cash Flow Forecast", "Market Trends", "Risk Modeling", "Growth Planning"],
       category: "AI Insights",
-      gradient: "from-violet-600 to-purple-600"
+      gradient: "hero-gradient"
     },
     {
       icon: Target,
@@ -135,7 +135,7 @@ const Home = () => {
       description: "Data-driven pricing strategies with competitive analysis and market research",
       features: ["Market Analysis", "Competitive Intelligence", "Margin Optimization", "A/B Testing"],
       category: "Strategy",
-      gradient: "from-rose-600 to-pink-600"
+      gradient: "surface-gradient"
     }
   ];
 
@@ -322,10 +322,10 @@ const Home = () => {
               return (
                 <Card key={index} className="group border-0 shadow-card hover:shadow-premium transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                   <CardContent className="p-0">
-                    <div className={`h-2 bg-gradient-to-r ${tool.gradient}`} />
+                    <div className={`h-2 bg-${tool.gradient}`} />
                     <div className="p-6">
                       <div className="flex items-start justify-between mb-6">
-                        <div className={`w-14 h-14 bg-gradient-to-r ${tool.gradient} rounded-xl flex items-center justify-center`}>
+                        <div className={`w-14 h-14 bg-${tool.gradient} rounded-xl flex items-center justify-center`}>
                           <Icon className="w-7 h-7 text-white" />
                         </div>
                         <Badge variant="outline" className="text-xs">
@@ -343,7 +343,7 @@ const Home = () => {
                       <div className="space-y-2">
                         {tool.features.slice(0, 3).map((feature, featureIndex) => (
                           <div key={featureIndex} className="flex items-center gap-3">
-                            <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
                             <span className="text-xs text-muted-foreground">{feature}</span>
                           </div>
                         ))}
@@ -396,7 +396,7 @@ const Home = () => {
                 <CardContent className="p-8">
                   <div className="flex items-center mb-6">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                      <Star key={i} className="w-5 h-5 fill-primary text-primary" />
                     ))}
                   </div>
                   
