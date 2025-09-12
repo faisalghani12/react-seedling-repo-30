@@ -33,12 +33,21 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/templates" element={<Templates />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/api-docs" element={<ApiDocs />} />
+            {/* <Route path="/pricing" element={<Pricing />} />
+            <Route path="/api-docs" element={<ApiDocs />} /> */}
             <Route path="/receipt-scanner" element={<ReceiptScanner />} />
-            <Route path="/financial-reports" element={<FinancialReportGenerator />} />
-            <Route path="/profit-loss-calculator" element={<ProfitLossCalculator />} />
-            <Route path="/predictive-insights" element={<PredictiveInsights />} />
+            <Route
+              path="/financial-reports"
+              element={<FinancialReportGenerator />}
+            />
+            <Route
+              path="/profit-loss-calculator"
+              element={<ProfitLossCalculator />}
+            />
+            <Route
+              path="/predictive-insights"
+              element={<PredictiveInsights />}
+            />
             <Route path="/valuation-tool" element={<ValuationTool />} />
             <Route path="/investment-tracker" element={<InvestmentTracker />} />
             <Route path="/sign-in" element={<SignIn />} />

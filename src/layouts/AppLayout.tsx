@@ -18,16 +18,16 @@ export function AppLayout({ children }: AppLayoutProps) {
     { to: "/", label: "Home" },
     { to: "/dashboard", label: "Dashboard" },
     { to: "/templates", label: "Templates" },
-    { to: "/pricing", label: "Pricing" },
-    { to: "/api-docs", label: "API Docs" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   const handleToolsSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && toolsSearchQuery.trim()) {
+    if (e.key === "Enter" && toolsSearchQuery.trim()) {
       // Navigate to dashboard with search parameter
-      navigate(`/dashboard?search=${encodeURIComponent(toolsSearchQuery.trim())}`);
+      navigate(
+        `/dashboard?search=${encodeURIComponent(toolsSearchQuery.trim())}`
+      );
       setToolsSearchQuery("");
       setMobileMenuOpen(false);
     }
@@ -67,26 +67,26 @@ export function AppLayout({ children }: AppLayoutProps) {
           <div className="flex items-center gap-3">
             <div className="relative hidden sm:block max-w-sm w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input 
-                placeholder="Search tools..." 
+              <Input
+                placeholder="Search tools..."
                 className="pl-10 bg-muted/30 w-full"
                 value={toolsSearchQuery}
                 onChange={(e) => setToolsSearchQuery(e.target.value)}
                 onKeyDown={handleToolsSearch}
               />
             </div>
-            
+
             <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
               <Bell className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
               <User className="w-4 h-4" />
             </Button>
-            
+
             {/* Mobile Menu Button */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -114,8 +114,8 @@ export function AppLayout({ children }: AppLayoutProps) {
               <div className="pt-3 border-t">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input 
-                    placeholder="Search tools..." 
+                  <Input
+                    placeholder="Search tools..."
                     className="pl-10 bg-muted/30"
                     value={toolsSearchQuery}
                     onChange={(e) => setToolsSearchQuery(e.target.value)}
@@ -129,9 +129,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
     </div>
   );
 }

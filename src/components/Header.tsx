@@ -35,18 +35,6 @@ export const Header = () => {
             >
               Features
             </a>
-            <Link
-              to="/pricing"
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              to="/api-docs"
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              API Docs
-            </Link>
           </nav>
 
           {/* Actions */}
