@@ -390,26 +390,53 @@ const Home = () => {
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {financialSuite.map((tool, index) => {
               const Icon = tool.icon;
+              
+              // Unique color schemes for each tool
+              const colorSchemes = [
+                { bg: "from-blue-500 to-blue-600", accent: "blue-500", glow: "blue-500/20" },
+                { bg: "from-emerald-500 to-emerald-600", accent: "emerald-500", glow: "emerald-500/20" },
+                { bg: "from-purple-500 to-purple-600", accent: "purple-500", glow: "purple-500/20" },
+                { bg: "from-orange-500 to-orange-600", accent: "orange-500", glow: "orange-500/20" },
+                { bg: "from-rose-500 to-rose-600", accent: "rose-500", glow: "rose-500/20" },
+                { bg: "from-cyan-500 to-cyan-600", accent: "cyan-500", glow: "cyan-500/20" },
+                { bg: "from-violet-500 to-violet-600", accent: "violet-500", glow: "violet-500/20" },
+                { bg: "from-amber-500 to-amber-600", accent: "amber-500", glow: "amber-500/20" },
+              ];
+              
+              const scheme = colorSchemes[index % colorSchemes.length];
+              
               return (
                 <Card
                   key={index}
                   className="group border-0 bg-card/60 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden hover:-translate-y-3 hover:scale-[1.02] relative"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  {/* Dynamic gradient overlay based on icon color */}
+                  <div className={`absolute inset-0 bg-gradient-to-br from-${scheme.accent}/5 via-transparent to-${scheme.accent}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  
+                  {/* Unique geometric decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-muted/10 to-transparent opacity-50"></div>
+                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-muted/5 to-transparent opacity-30"></div>
                   
                   <CardContent className="p-0 relative z-10">
-                    <div className="h-1 bg-gradient-to-r from-primary to-primary/60"></div>
+                    {/* Dynamic accent line */}
+                    <div className={`h-1.5 bg-gradient-to-r from-${scheme.accent} to-${scheme.accent}/60`}></div>
+                    
                     <div className="p-8">
                       <div className="flex items-start justify-between mb-8">
-                        <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-500">
-                          <Icon className="w-8 h-8 text-white" />
+                        {/* Unique icon with dynamic colors and enhanced shadow */}
+                        <div className={`w-16 h-16 bg-gradient-to-br ${scheme.bg} rounded-2xl flex items-center justify-center shadow-lg shadow-${scheme.glow} group-hover:shadow-xl group-hover:shadow-${scheme.glow} transition-all duration-500 relative`}>
+                          {/* Icon glow effect */}
+                          <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${scheme.bg} opacity-0 group-hover:opacity-20 blur-sm scale-110 transition-opacity duration-500`}></div>
+                          <Icon className="w-8 h-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
                         </div>
-                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm">
+                        
+                        {/* Enhanced category badge */}
+                        <Badge variant="outline" className={`bg-background/80 backdrop-blur-sm border-${scheme.accent}/20 text-${scheme.accent} group-hover:bg-${scheme.accent}/10 transition-colors`}>
                           {tool.category}
                         </Badge>
                       </div>
 
-                      <h3 className="font-bold text-xl text-foreground mb-4 group-hover:text-primary transition-colors leading-tight">
+                      <h3 className={`font-bold text-xl text-foreground mb-4 group-hover:text-${scheme.accent} transition-colors leading-tight`}>
                         {tool.title}
                       </h3>
                       <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -419,19 +446,19 @@ const Home = () => {
                       <div className="space-y-3 mb-8">
                         {tool.features.slice(0, 3).map((feature, featureIndex) => (
                           <div key={featureIndex} className="flex items-center gap-3">
-                            <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                            <div className={`w-2 h-2 bg-${scheme.accent} rounded-full flex-shrink-0`}></div>
                             <span className="text-sm text-muted-foreground">{feature}</span>
                           </div>
                         ))}
                         {tool.features.length > 3 && (
-                          <div className="text-sm text-primary font-medium">
+                          <div className={`text-sm text-${scheme.accent} font-medium`}>
                             +{tool.features.length - 3} more features
                           </div>
                         )}
                       </div>
 
                       <Button 
-                        className="w-full group/btn shadow-md hover:shadow-lg transition-shadow"
+                        className={`w-full group/btn shadow-md hover:shadow-lg hover:shadow-${scheme.glow} transition-all duration-300 bg-${scheme.accent} hover:bg-${scheme.accent}/90`}
                         onClick={() => navigate("/dashboard")}
                       >
                         Get Started
