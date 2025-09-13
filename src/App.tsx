@@ -15,6 +15,7 @@ import GetStarted from "./pages/GetStarted";
 import ReceiptScanner from "./pages/ReceiptScanner";
 import FinancialReportGenerator from "./pages/FinancialReportGenerator";
 import ProfitLossCalculator from "./pages/ProfitLossCalculator";
+import PricingCalculator from "./pages/PricingCalculator";
 import PredictiveInsights from "./pages/PredictiveInsights";
 import ValuationTool from "./pages/ValuationTool";
 import InvestmentTracker from "./pages/InvestmentTracker";
@@ -43,6 +44,10 @@ const App = () => (
             <Route
               path="/profit-loss-calculator"
               element={<ProfitLossCalculator />}
+            />
+            <Route
+              path="/pricing-calculator"
+              element={<PricingCalculator />}
             />
             <Route
               path="/predictive-insights"

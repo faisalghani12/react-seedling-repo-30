@@ -171,7 +171,7 @@ export const FINANCIAL_TOOLS: Omit<Tool, 'onAction'>[] = [
 // Navigation route mapping
 export const TOOL_ROUTES: Record<string, string> = {
   "Professional Invoicing": "/templates",
-  "Pricing Calculator": "/pricing", 
+  "Pricing Calculator": "/pricing-calculator",
   "AI Receipt Processing": "/receipt-scanner",
   "Financial Report Generator": "/financial-reports",
   "Business Valuation": "/valuation-tool", 

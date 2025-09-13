@@ -28,7 +28,7 @@ import {
 const mainTools = [
   { title: "Dashboard", url: "/", icon: Home },
   { title: "Invoice Generator", url: "/templates", icon: FileText },
-  { title: "Pricing Calculator", url: "/pricing", icon: CreditCard },
+  { title: "Pricing Calculator", url: "/pricing-calculator", icon: CreditCard },
   { title: "API Docs", url: "/api-docs", icon: Code },
 ];
 
