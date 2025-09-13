@@ -130,7 +130,11 @@ export function AppLayout({ children }: AppLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">{children}</main>
+      <main key={location.pathname} className="flex-1 relative overflow-hidden">
+        <div className="w-full h-full">
+          {children}
+        </div>
+      </main>
       <Footer />
     </div>
   );
