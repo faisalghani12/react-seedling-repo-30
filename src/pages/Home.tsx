@@ -1,9 +1,12 @@
+// src/pages/Home.tsx
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
+import { HomeToolCard } from "../components/cards/HomeToolCard";
+import { ToolsGrid } from "../components/grids/ToolsGrid";
+import { useTools } from "../hooks/useTools";
 import {
   ArrowRight,
   Star,
@@ -11,25 +14,14 @@ import {
   TrendingUp,
   Shield,
   Clock,
-  FileText,
   CheckCircle,
   Quote,
   Globe,
-  Zap,
-  Calculator,
-  Scan,
-  BarChart3,
-  DollarSign,
-  PieChart,
-  Target,
-  Brain,
   Sparkles,
-  Building2,
   Award,
-  Lightbulb,
   Rocket,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Professional Home page for European/USA markets
@@ -37,6 +29,9 @@ import { Link, useNavigate } from "react-router-dom";
  */
 const Home = () => {
   const navigate = useNavigate();
+
+  // Get all available tools for home page
+  const { tools } = useTools({ status: ["available"] });
 
   const enterpriseStats = [
     {
@@ -88,121 +83,6 @@ const Home = () => {
     },
   ];
 
-  const financialSuite = [
-    {
-      icon: FileText,
-      title: "Professional Invoicing",
-      description:
-        "Create stunning, branded invoices with 500+ templates and instant PDF generation",
-      features: [
-        "Custom Branding",
-        "Multi-currency",
-        "Automated Reminders",
-        "Payment Integration",
-      ],
-      category: "Core",
-      gradient: "primary-gradient",
-    },
-    {
-      icon: Calculator,
-      title: "Advanced P&L Analytics",
-      description:
-        "Comprehensive profit & loss analysis with real-time financial insights and forecasting",
-      features: [
-        "Revenue Analysis",
-        "Cost Optimization",
-        "Margin Tracking",
-        "Predictive Models",
-      ],
-      category: "Analytics",
-      gradient: "surface-gradient",
-    },
-    {
-      icon: Scan,
-      title: "AI Receipt Processing",
-      description:
-        "Extract and categorize expense data automatically using advanced OCR technology",
-      features: [
-        "OCR Recognition",
-        "Auto-categorization",
-        "Expense Tracking",
-        "Audit Trails",
-      ],
-      category: "Automation",
-      gradient: "hero-gradient",
-    },
-    {
-      icon: BarChart3,
-      title: "Financial Reporting",
-      description:
-        "Generate comprehensive reports and visual dashboards for stakeholder communication",
-      features: [
-        "Custom Reports",
-        "Visual Dashboards",
-        "Export Options",
-        "Compliance Ready",
-      ],
-      category: "Reporting",
-      gradient: "feature-gradient",
-    },
-    {
-      icon: DollarSign,
-      title: "Business Valuation",
-      description:
-        "Calculate enterprise value using multiple methodologies and market comparisons",
-      features: [
-        "DCF Analysis",
-        "Market Multiples",
-        "Risk Assessment",
-        "Scenario Planning",
-      ],
-      category: "Valuation",
-      gradient: "primary-gradient",
-    },
-    {
-      icon: PieChart,
-      title: "Investment Analytics",
-      description:
-        "Track portfolio performance and analyze investment opportunities with precision",
-      features: [
-        "Portfolio Tracking",
-        "Risk Analysis",
-        "Performance Metrics",
-        "Diversification",
-      ],
-      category: "Investment",
-      gradient: "glass-gradient",
-    },
-    {
-      icon: Brain,
-      title: "Predictive Intelligence",
-      description:
-        "AI-powered forecasting and business predictions for strategic decision making",
-      features: [
-        "Cash Flow Forecast",
-        "Market Trends",
-        "Risk Modeling",
-        "Growth Planning",
-      ],
-      category: "AI Insights",
-      gradient: "hero-gradient",
-    },
-    {
-      icon: Target,
-      title: "Pricing Optimization",
-      description:
-        "Data-driven pricing strategies with competitive analysis and market research",
-      features: [
-        "Market Analysis",
-        "Competitive Intelligence",
-        "Margin Optimization",
-        "A/B Testing",
-      ],
-      category: "Strategy",
-      gradient: "surface-gradient",
-    },
-  ];
-
   const testimonials = [
     {
       name: "Alexandra Chen",
@@ -236,61 +116,6 @@ const Home = () => {
     },
   ];
 
-  const enterprisePlans = [
-    {
-      name: "Professional",
-      price: "$49",
-      period: "/month",
-      description: "Advanced features for growing businesses",
-      features: [
-        "Unlimited invoices & reports",
-        "500+ premium templates",
-        "Advanced analytics",
-        "API access",
-        "Priority support",
-        "Multi-currency support",
-      ],
-      cta: "Start Free Trial",
-      popular: false,
-      badge: "",
-    },
-    {
-      name: "Enterprise",
-      price: "$199",
-      period: "/month",
-      description: "Complete financial operations platform",
-      features: [
-        "All Professional features",
-        "Custom integrations",
-        "Advanced AI insights",
-        "Dedicated success manager",
-        "SLA guarantees",
-        "White-label options",
-        "Advanced security controls",
-      ],
-      cta: "Contact Sales",
-      popular: true,
-      badge: "Most Popular",
-    },
-    {
-      name: "Enterprise Plus",
-      price: "Custom",
-      period: "",
-      description: "Tailored solutions for large organizations",
-      features: [
-        "Custom development",
-        "On-premise deployment",
-        "Advanced compliance",
-        "24/7 dedicated support",
-        "Custom training programs",
-        "Multi-tenant architecture",
-      ],
-      cta: "Schedule Demo",
-      popular: false,
-      badge: "Custom Solution",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -300,18 +125,16 @@ const Home = () => {
       <section className="py-12 bg-feature-gradient md:hidden">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="bg-white rounded-xl p-4 shadow-card">
-              <div className="text-lg font-bold text-primary mb-1">500+</div>
-              <div className="text-xs text-muted-foreground">Clients</div>
-            </div>
-            <div className="bg-white rounded-xl p-4 shadow-card">
-              <div className="text-lg font-bold text-primary mb-1">99.9%</div>
-              <div className="text-xs text-muted-foreground">Uptime</div>
-            </div>
-            <div className="bg-white rounded-xl p-4 shadow-card">
-              <div className="text-lg font-bold text-primary mb-1">4.9★</div>
-              <div className="text-xs text-muted-foreground">Rating</div>
-            </div>
+            {enterpriseStats.slice(0, 3).map((stat, index) => (
+              <div key={index} className="bg-white rounded-xl p-4 shadow-card">
+                <div className="text-lg font-bold text-primary mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -331,206 +154,41 @@ const Home = () => {
               Everything You Need in One Platform
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Transform your business with our comprehensive suite of financial tools designed for modern enterprises.
+              Transform your business with our comprehensive suite of financial
+              tools designed for modern enterprises.
             </p>
           </div>
 
           {/* Mobile: Show top 4 tools with CTAs */}
-          <div className="grid grid-cols-1 gap-6 md:hidden">
-            {financialSuite.slice(0, 4).map((tool, index) => {
-              const Icon = tool.icon;
-              return (
-                <Card
-                  key={index}
-                  className="group border-0 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden hover:scale-[1.02]"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4 mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
-                            {tool.title}
-                          </h3>
-                          <Badge variant="secondary" className="text-xs bg-muted">
-                            {tool.category}
-                          </Badge>
-                        </div>
-                        <p className="text-muted-foreground leading-relaxed mb-4">
-                          {tool.description}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2 mb-6">
-                      {tool.features.slice(0, 4).map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Button 
-                      className="w-full group/btn"
-                      onClick={() => navigate("/dashboard")}
-                    >
-                      Try {tool.title}
-                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="md:hidden">
+            <ToolsGrid
+              tools={tools.slice(0, 4)}
+              renderCard={(tool, index) => (
+                <HomeToolCard key={tool.title} {...tool} index={index} />
+              )}
+              className="grid grid-cols-1 gap-6"
+            />
           </div>
 
           {/* Desktop: Show all tools with enhanced design */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {financialSuite.map((tool, index) => {
-              const Icon = tool.icon;
-              
-              // Predefined color schemes that are safe with Tailwind
-              const colorSchemes = [
-                { 
-                  bgGradient: "bg-gradient-to-br from-blue-500 to-blue-600", 
-                  accentLine: "bg-blue-500", 
-                  accentText: "text-blue-600",
-                  accentBg: "bg-blue-500 hover:bg-blue-600",
-                  accentBorder: "border-blue-200",
-                  shadow: "shadow-blue-500/20 hover:shadow-blue-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-emerald-500 to-emerald-600", 
-                  accentLine: "bg-emerald-500", 
-                  accentText: "text-emerald-600",
-                  accentBg: "bg-emerald-500 hover:bg-emerald-600",
-                  accentBorder: "border-emerald-200",
-                  shadow: "shadow-emerald-500/20 hover:shadow-emerald-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-purple-500 to-purple-600", 
-                  accentLine: "bg-purple-500", 
-                  accentText: "text-purple-600",
-                  accentBg: "bg-purple-500 hover:bg-purple-600",
-                  accentBorder: "border-purple-200",
-                  shadow: "shadow-purple-500/20 hover:shadow-purple-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-orange-500 to-orange-600", 
-                  accentLine: "bg-orange-500", 
-                  accentText: "text-orange-600",
-                  accentBg: "bg-orange-500 hover:bg-orange-600",
-                  accentBorder: "border-orange-200",
-                  shadow: "shadow-orange-500/20 hover:shadow-orange-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-rose-500 to-rose-600", 
-                  accentLine: "bg-rose-500", 
-                  accentText: "text-rose-600",
-                  accentBg: "bg-rose-500 hover:bg-rose-600",
-                  accentBorder: "border-rose-200",
-                  shadow: "shadow-rose-500/20 hover:shadow-rose-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-cyan-500 to-cyan-600", 
-                  accentLine: "bg-cyan-500", 
-                  accentText: "text-cyan-600",
-                  accentBg: "bg-cyan-500 hover:bg-cyan-600",
-                  accentBorder: "border-cyan-200",
-                  shadow: "shadow-cyan-500/20 hover:shadow-cyan-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-violet-500 to-violet-600", 
-                  accentLine: "bg-violet-500", 
-                  accentText: "text-violet-600",
-                  accentBg: "bg-violet-500 hover:bg-violet-600",
-                  accentBorder: "border-violet-200",
-                  shadow: "shadow-violet-500/20 hover:shadow-violet-500/30"
-                },
-                { 
-                  bgGradient: "bg-gradient-to-br from-amber-500 to-amber-600", 
-                  accentLine: "bg-amber-500", 
-                  accentText: "text-amber-600",
-                  accentBg: "bg-amber-500 hover:bg-amber-600",
-                  accentBorder: "border-amber-200",
-                  shadow: "shadow-amber-500/20 hover:shadow-amber-500/30"
-                },
-              ];
-              
-              const scheme = colorSchemes[index % colorSchemes.length];
-              
-              return (
-                <Card
-                  key={index}
-                  className="group border-0 bg-card/60 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden hover:-translate-y-3 hover:scale-[1.02] relative"
-                >
-                  {/* Dynamic gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Unique geometric decoration */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-muted/10 to-transparent opacity-50"></div>
-                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-muted/5 to-transparent opacity-30"></div>
-                  
-                  <CardContent className="p-0 relative z-10">
-                    {/* Dynamic accent line */}
-                    <div className={`h-1.5 ${scheme.accentLine}`}></div>
-                    
-                    <div className="p-8">
-                      <div className="flex items-start justify-between mb-8">
-                        {/* Unique icon with dynamic colors and enhanced shadow */}
-                        <div className={`w-16 h-16 ${scheme.bgGradient} rounded-2xl flex items-center justify-center ${scheme.shadow} transition-all duration-500 relative`}>
-                          {/* Icon glow effect */}
-                          <div className={`absolute inset-0 rounded-2xl ${scheme.bgGradient} opacity-0 group-hover:opacity-20 blur-sm scale-110 transition-opacity duration-500`}></div>
-                          <Icon className="w-8 h-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                        
-                        {/* Enhanced category badge */}
-                        <Badge variant="outline" className={`bg-background/80 backdrop-blur-sm ${scheme.accentBorder} ${scheme.accentText} group-hover:bg-muted/50 transition-colors`}>
-                          {tool.category}
-                        </Badge>
-                      </div>
-
-                      <h3 className={`font-bold text-xl text-foreground mb-4 group-hover:${scheme.accentText} transition-colors leading-tight`}>
-                        {tool.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-8 leading-relaxed">
-                        {tool.description}
-                      </p>
-
-                      <div className="space-y-3 mb-8">
-                        {tool.features.slice(0, 3).map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center gap-3">
-                            <div className={`w-2 h-2 ${scheme.accentLine} rounded-full flex-shrink-0`}></div>
-                            <span className="text-sm text-muted-foreground">{feature}</span>
-                          </div>
-                        ))}
-                        {tool.features.length > 3 && (
-                          <div className={`text-sm ${scheme.accentText} font-medium`}>
-                            +{tool.features.length - 3} more features
-                          </div>
-                        )}
-                      </div>
-
-                      <Button 
-                        className={`w-full group/btn shadow-md hover:shadow-lg transition-all duration-300 text-white ${scheme.accentBg}`}
-                        onClick={() => navigate("/dashboard")}
-                      >
-                        Get Started
-                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="hidden md:block">
+            <ToolsGrid
+              tools={tools}
+              renderCard={(tool, index) => (
+                <HomeToolCard key={tool.title} {...tool} index={index} />
+              )}
+              className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            />
           </div>
 
           <div className="text-center mt-16">
             <div className="bg-card/30 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Transform Your Business?</h3>
-              <p className="text-muted-foreground mb-6">Join thousands of businesses already using our platform</p>
+              <h3 className="text-2xl font-bold text-foreground mb-4">
+                Ready to Transform Your Business?
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Join thousands of businesses already using our platform
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
@@ -554,7 +212,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Single Testimonial for Mobile, Full testimonials for Desktop */}
+      {/* Testimonials Section */}
       <section className="py-16 md:py-24 bg-feature-gradient">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 md:mb-16">
@@ -582,92 +240,79 @@ const Home = () => {
 
           {/* Mobile: Single Featured Testimonial */}
           <div className="md:hidden">
-            <Card className="border-0 shadow-card">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-
-                <p className="text-muted-foreground mb-6 leading-relaxed font-medium text-sm">
-                  "FinTools.AI transformed our financial operations. The
-                  predictive analytics helped us secure $50M in Series B
-                  funding."
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary-gradient rounded-full flex items-center justify-center text-white font-bold text-sm">
-                      AC
+            <div className="border-0 shadow-card bg-card rounded-lg p-6">
+              <div className="flex items-center mb-4">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                ))}
+              </div>
+              <p className="text-muted-foreground mb-6 leading-relaxed font-medium text-sm">
+                "{testimonials[0].content}"
+              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary-gradient rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    {testimonials[0].avatar}
+                  </div>
+                  <div>
+                    <div className="font-bold text-foreground text-sm">
+                      {testimonials[0].name}
                     </div>
-                    <div>
-                      <div className="font-bold text-foreground text-sm">
-                        Alexandra Chen
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        CFO, TechVenture Capital
-                      </div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonials[0].role}
                     </div>
                   </div>
-                  <Badge variant="secondary" className="text-xs">
-                    $50M+ secured
-                  </Badge>
                 </div>
-              </CardContent>
-            </Card>
+                <Badge variant="secondary" className="text-xs">
+                  {testimonials[0].result}
+                </Badge>
+              </div>
+            </div>
           </div>
 
           {/* Desktop: Full Testimonials Grid */}
           <div className="hidden md:grid lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card
+              <div
                 key={index}
-                className="border-0 shadow-card hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+                className="border-0 shadow-card hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 bg-card rounded-lg p-8"
               >
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-6">
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-primary text-primary"
-                      />
-                    ))}
-                  </div>
-
-                  <Quote className="w-10 h-10 text-primary mb-6" />
-                  <p className="text-muted-foreground mb-8 leading-relaxed font-medium">
-                    "{testimonial.content}"
-                  </p>
-
-                  <div className="border-t pt-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white font-bold">
-                          {testimonial.avatar}
+                <div className="flex items-center mb-6">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-primary text-primary"
+                    />
+                  ))}
+                </div>
+                <Quote className="w-10 h-10 text-primary mb-6" />
+                <p className="text-muted-foreground mb-8 leading-relaxed font-medium">
+                  "{testimonial.content}"
+                </p>
+                <div className="border-t pt-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white font-bold">
+                        {testimonial.avatar}
+                      </div>
+                      <div>
+                        <div className="font-bold text-foreground">
+                          {testimonial.name}
                         </div>
-                        <div>
-                          <div className="font-bold text-foreground">
-                            {testimonial.name}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {testimonial.role}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            {testimonial.company}
-                          </div>
+                        <div className="text-sm text-muted-foreground">
+                          {testimonial.role}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {testimonial.company}
                         </div>
                       </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {testimonial.result}
-                      </Badge>
                     </div>
+                    <Badge variant="secondary" className="text-xs">
+                      {testimonial.result}
+                    </Badge>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -736,26 +381,18 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
-              <div className="text-white/70">
-                <div className="text-xs md:text-sm font-medium">
-                  No setup fees
+              {[
+                "No setup fees",
+                "30-day trial",
+                "Cancel anytime",
+                "SOC 2 compliant",
+              ].map((benefit, index) => (
+                <div key={index} className="text-white/70">
+                  <div className="text-xs md:text-sm font-medium">
+                    {benefit}
+                  </div>
                 </div>
-              </div>
-              <div className="text-white/70">
-                <div className="text-xs md:text-sm font-medium">
-                  30-day trial
-                </div>
-              </div>
-              <div className="text-white/70">
-                <div className="text-xs md:text-sm font-medium">
-                  Cancel anytime
-                </div>
-              </div>
-              <div className="text-white/70">
-                <div className="text-xs md:text-sm font-medium">
-                  SOC 2 compliant
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
