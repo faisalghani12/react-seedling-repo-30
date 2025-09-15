@@ -47,7 +47,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <FileText className="w-4 h-4 text-white" />
             </div>
             <div className="font-bold text-lg text-foreground">
-              FinTools<span className="text-primary">.AI</span>
+              Finystics<span className="text-primary">.AI</span>
             </div>
           </Link>
 

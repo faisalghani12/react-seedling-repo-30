@@ -1,11 +1,10 @@
 // src/pages/Home.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { HomeToolCard } from "../components/cards/HomeToolCard";
-import { ToolsGrid } from "../components/grids/ToolsGrid";
 import { useTools } from "../hooks/useTools";
 import {
   ArrowRight,
@@ -20,6 +19,8 @@ import {
   Sparkles,
   Award,
   Rocket,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -30,8 +31,96 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
 
+  // Slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+
   // Get all available tools for home page
   const { tools } = useTools({ status: ["available"] });
+
+  // Slider configuration
+  const slidesToShow = {
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+    xl: 4,
+  };
+
+  const [currentSlidesToShow, setCurrentSlidesToShow] = useState(
+    slidesToShow.desktop
+  );
+
+  // Update slides to show based on screen size
+  useEffect(() => {
+    const updateSlidesToShow = () => {
+      if (window.innerWidth < 768) {
+        setCurrentSlidesToShow(slidesToShow.mobile);
+      } else if (window.innerWidth < 1024) {
+        setCurrentSlidesToShow(slidesToShow.tablet);
+      } else if (window.innerWidth < 1280) {
+        setCurrentSlidesToShow(slidesToShow.desktop);
+      } else {
+        setCurrentSlidesToShow(slidesToShow.xl);
+      }
+    };
+
+    updateSlidesToShow();
+    window.addEventListener("resize", updateSlidesToShow);
+    return () => window.removeEventListener("resize", updateSlidesToShow);
+  }, []);
+
+  // Reset slide position when screen size changes
+  useEffect(() => {
+    const maxSlide = Math.max(0, tools.length - currentSlidesToShow);
+    if (currentSlide > maxSlide) {
+      setCurrentSlide(maxSlide);
+    }
+  }, [currentSlidesToShow, tools.length, currentSlide]);
+
+  // Auto-play functionality - FIXED
+  useEffect(() => {
+    if (isAutoPlay && tools.length > currentSlidesToShow) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => {
+          const maxSlide = Math.max(0, tools.length - currentSlidesToShow);
+          if (prev >= maxSlide) {
+            setIsAutoPlay(false); // Stop auto-play when reaching the end
+            return maxSlide;
+          }
+          return prev + 1;
+        });
+      }, 4000); // 4 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isAutoPlay, tools.length, currentSlidesToShow]);
+
+  // FIXED navigation functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => {
+      const maxSlide = Math.max(0, tools.length - currentSlidesToShow);
+      const nextIndex = Math.min(prev + 1, maxSlide);
+      if (nextIndex >= maxSlide) {
+        setIsAutoPlay(false); // Stop auto-play when reaching the end
+      }
+      return nextIndex;
+    });
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => {
+      return Math.max(prev - 1, 0);
+    });
+  };
+
+  const goToSlide = (index: number) => {
+    setIsAutoPlay(false);
+    const maxSlide = Math.max(0, tools.length - currentSlidesToShow);
+    setCurrentSlide(Math.min(Math.max(index, 0), maxSlide));
+  };
+
+  const maxSlide = Math.max(0, tools.length - currentSlidesToShow);
+  const canSlide = tools.length > currentSlidesToShow;
 
   const enterpriseStats = [
     {
@@ -139,7 +228,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Complete Financial Suite */}
+      {/* Complete Financial Suite with Slider */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 md:mb-16">
@@ -159,55 +248,133 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Mobile: Show top 4 tools with CTAs */}
-          <div className="md:hidden">
-            <ToolsGrid
-              tools={tools.slice(0, 4)}
-              renderCard={(tool, index) => (
-                <HomeToolCard key={tool.title} {...tool} index={index} />
-              )}
-              className="grid grid-cols-1 gap-6"
-            />
-          </div>
+          {/* Tools Slider - FIXED */}
+          <div className="relative">
+            {/* Slider Container */}
+            <div className="overflow-hidden rounded-lg">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${
+                    currentSlide * (100 / currentSlidesToShow)
+                  }%)`,
+                }}
+              >
+                {tools.map((tool, index) => (
+                  <div
+                    key={tool.title}
+                    className="flex-shrink-0 px-2 md:px-4"
+                    style={{
+                      width: `${100 / currentSlidesToShow}%`,
+                    }}
+                  >
+                    <HomeToolCard {...tool} index={index} />
+                  </div>
+                ))}
 
-          {/* Desktop: Show all tools with enhanced design */}
-          <div className="hidden md:block">
-            <ToolsGrid
-              tools={tools}
-              renderCard={(tool, index) => (
-                <HomeToolCard key={tool.title} {...tool} index={index} />
-              )}
-              className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-            />
-          </div>
-
-          <div className="text-center mt-16">
-            <div className="bg-card/30 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Ready to Transform Your Business?
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                Join thousands of businesses already using our platform
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  onClick={() => navigate("/dashboard")}
-                  className="shadow-lg group px-8 py-4"
-                >
-                  Start Free Trial
-                  <ArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => navigate("/templates")}
-                  className="px-8 py-4"
-                >
-                  View Templates
-                </Button>
+                {/* CTA Card - only show when at the end and there are enough tools to slide */}
+                {canSlide && currentSlide >= maxSlide && (
+                  <div
+                    className="flex-shrink-0 px-2 md:px-4 flex items-center justify-center"
+                    style={{
+                      width: `${100 / currentSlidesToShow}%`,
+                    }}
+                  >
+                    <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-2 border-primary/20 rounded-xl p-6 md:p-8 text-center h-full flex flex-col justify-center min-h-[300px] w-full">
+                      <div className="bg-primary/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <Rocket className="w-8 h-8 text-primary" />
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">
+                        Ready to Get Started?
+                      </h3>
+                      <p className="text-muted-foreground mb-6 text-sm md:text-base">
+                        Explore all our powerful financial tools and transform
+                        your business today.
+                      </p>
+                      <div className="space-y-3">
+                        <Button
+                          className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
+                          onClick={() => navigate("/dashboard")}
+                        >
+                          View All Tools
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="w-full border-primary/30 text-primary hover:bg-primary/10"
+                          onClick={() => navigate("/templates")}
+                        >
+                          Start Free Trial
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+
+            {/* Navigation Arrows - FIXED */}
+            {canSlide && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 md:p-3 transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={currentSlide <= 0}
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 md:p-3 transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={currentSlide >= maxSlide}
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+                </button>
+              </>
+            )}
+
+            {/* Slide Indicators - FIXED */}
+            {canSlide && maxSlide > 0 && (
+              <div className="flex justify-center mt-8 gap-2">
+                {Array.from({ length: maxSlide + 1 }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                      currentSlide === index
+                        ? "bg-primary scale-110"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Mobile swipe hint */}
+            {canSlide && (
+              <div className="md:hidden text-center mt-4">
+                <p className="text-sm text-muted-foreground">
+                  Swipe or use arrows to see more tools
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* View All Tools Button */}
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/dashboard")}
+              className="px-8 py-3 text-base font-semibold group"
+            >
+              View All Tools
+              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Button>
           </div>
         </div>
       </section>
