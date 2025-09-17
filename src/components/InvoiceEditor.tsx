@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { generateInvoicePDF, InvoiceData, sampleInvoiceData } from '@/services/pdfGenerator';
 import { Download, Plus, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -55,6 +56,25 @@ export const InvoiceEditor: React.FC<InvoiceEditorProps> = ({ template, onClose 
     setInvoiceData(prev => ({
       ...prev,
       [field]: value
+    }));
+  };
+
+  const handleCurrencyChange = (currency: string) => {
+    const currencyMap: Record<string, string> = {
+      'USD': '$',
+      'EUR': '€',
+      'GBP': '£',
+      'JPY': '¥',
+      'CAD': 'C$',
+      'AUD': 'A$',
+      'CHF': 'CHF',
+      'INR': '₹'
+    };
+    
+    setInvoiceData(prev => ({
+      ...prev,
+      currency,
+      currencySymbol: currencyMap[currency] || '$'
     }));
   };
 
@@ -229,6 +249,24 @@ export const InvoiceEditor: React.FC<InvoiceEditorProps> = ({ template, onClose 
                 />
               </div>
             </div>
+            <div className="space-y-2">
+              <Label>Currency</Label>
+              <Select value={invoiceData.currency} onValueChange={handleCurrencyChange}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD ($)</SelectItem>
+                  <SelectItem value="EUR">EUR (€)</SelectItem>
+                  <SelectItem value="GBP">GBP (£)</SelectItem>
+                  <SelectItem value="JPY">JPY (¥)</SelectItem>
+                  <SelectItem value="CAD">CAD (C$)</SelectItem>
+                  <SelectItem value="AUD">AUD (A$)</SelectItem>
+                  <SelectItem value="CHF">CHF</SelectItem>
+                  <SelectItem value="INR">INR (₹)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </CardContent>
         </Card>
 
@@ -382,14 +420,14 @@ export const InvoiceEditor: React.FC<InvoiceEditorProps> = ({ template, onClose 
                     onChange={(e) => handleItemChange(index, 'rate', Number(e.target.value))}
                   />
                 </div>
-                <div className="col-span-2">
-                  <Label>Amount</Label>
-                  <Input
-                    value={`$${item.amount.toFixed(2)}`}
-                    disabled
-                    className="bg-muted"
-                  />
-                </div>
+                 <div className="col-span-2">
+                   <Label>Amount</Label>
+                   <Input
+                     value={`${invoiceData.currencySymbol}${item.amount.toFixed(2)}`}
+                     disabled
+                     className="bg-muted"
+                   />
+                 </div>
                 <div className="col-span-1">
                   <Button
                     variant="outline"
@@ -410,15 +448,15 @@ export const InvoiceEditor: React.FC<InvoiceEditorProps> = ({ template, onClose 
               <div className="w-80 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>${invoiceData.subtotal.toFixed(2)}</span>
+                  <span>{invoiceData.currencySymbol}{invoiceData.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Tax (10%):</span>
-                  <span>${invoiceData.tax.toFixed(2)}</span>
+                  <span>{invoiceData.currencySymbol}{invoiceData.tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg border-t pt-2">
                   <span>Total:</span>
-                  <span className="text-primary">${invoiceData.total.toFixed(2)}</span>
+                  <span className="text-primary">{invoiceData.currencySymbol}{invoiceData.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

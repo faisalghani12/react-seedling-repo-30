@@ -8,7 +8,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { InvoiceEditor } from "@/components/InvoiceEditor";
-import { generateInvoicePDF, sampleInvoiceData } from "@/services/pdfGenerator";
 import { Search, Eye, Star, Filter, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 

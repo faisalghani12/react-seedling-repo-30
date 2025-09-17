@@ -629,6 +629,8 @@ export interface InvoiceData {
   invoiceNumber: string;
   date: string;
   dueDate: string;
+  currency: string;
+  currencySymbol: string;
   from: {
     name: string;
     address: string;
@@ -712,8 +714,8 @@ const InvoicePDF: React.FC<{ data: InvoiceData; templateId?: string }> = ({ data
             <View key={index} style={styles.tableRow}>
               <Text style={styles.tableCell}>{item.description}</Text>
               <Text style={styles.tableCell}>{item.quantity}</Text>
-              <Text style={styles.tableCell}>${item.rate.toFixed(2)}</Text>
-              <Text style={styles.tableCellRight}>${item.amount.toFixed(2)}</Text>
+              <Text style={styles.tableCell}>{data.currencySymbol}{item.rate.toFixed(2)}</Text>
+              <Text style={styles.tableCellRight}>{data.currencySymbol}{item.amount.toFixed(2)}</Text>
             </View>
           ))}
         </View>
@@ -722,15 +724,15 @@ const InvoicePDF: React.FC<{ data: InvoiceData; templateId?: string }> = ({ data
         <View style={styles.total}>
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Subtotal:</Text>
-            <Text style={styles.totalValue}>${data.subtotal.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>{data.currencySymbol}{data.subtotal.toFixed(2)}</Text>
           </View>
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Tax:</Text>
-            <Text style={styles.totalValue}>${data.tax.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>{data.currencySymbol}{data.tax.toFixed(2)}</Text>
           </View>
           <View style={styles.grandTotal}>
             <Text style={styles.grandTotalLabel}>Total:</Text>
-            <Text style={styles.grandTotalValue}>${data.total.toFixed(2)}</Text>
+            <Text style={styles.grandTotalValue}>{data.currencySymbol}{data.total.toFixed(2)}</Text>
           </View>
         </View>
 
@@ -763,46 +765,29 @@ export const generateInvoicePDF = async (data: InvoiceData, filename?: string, t
   }
 };
 
-// Sample invoice data for demo purposes
+// Default empty invoice data
 export const sampleInvoiceData: InvoiceData = {
-  invoiceNumber: 'INV-2024-001',
+  invoiceNumber: '',
   date: new Date().toLocaleDateString(),
   dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+  currency: 'USD',
+  currencySymbol: '$',
   from: {
-    name: 'Your Company Name',
-    address: '123 Business Street',
-    city: 'Business City, BC 12345',
-    email: 'contact@yourcompany.com',
-    phone: '+1 (555) 123-4567',
+    name: '',
+    address: '',
+    city: '',
+    email: '',
+    phone: '',
   },
   to: {
-    name: 'Client Company',
-    address: '456 Client Avenue',
-    city: 'Client City, CC 67890',
-    email: 'billing@clientcompany.com',
+    name: '',
+    address: '',
+    city: '',
+    email: '',
   },
-  items: [
-    {
-      description: 'Web Development Services',
-      quantity: 40,
-      rate: 75.00,
-      amount: 3000.00,
-    },
-    {
-      description: 'Design Consultation',
-      quantity: 10,
-      rate: 100.00,
-      amount: 1000.00,
-    },
-    {
-      description: 'Project Management',
-      quantity: 20,
-      rate: 50.00,
-      amount: 1000.00,
-    },
-  ],
-  subtotal: 5000.00,
-  tax: 500.00,
-  total: 5500.00,
-  notes: 'Payment is due within 30 days. Thank you for your business!',
+  items: [],
+  subtotal: 0,
+  tax: 0,
+  total: 0,
+  notes: '',
 };

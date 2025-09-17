@@ -33,15 +33,7 @@ const PredictiveInsights = () => {
   const [marketTrends, setMarketTrends] = useState<any[]>([]);
   const [loadingTrends, setLoadingTrends] = useState(false);
 
-  // Sample historical data
-  const historicalData = [
-    { month: "Jan", revenue: 45000, expenses: 32000, profit: 13000 },
-    { month: "Feb", revenue: 52000, expenses: 35000, profit: 17000 },
-    { month: "Mar", revenue: 48000, expenses: 33000, profit: 15000 },
-    { month: "Apr", revenue: 58000, expenses: 38000, profit: 20000 },
-    { month: "May", revenue: 62000, expenses: 40000, profit: 22000 },
-    { month: "Jun", revenue: 55000, expenses: 37000, profit: 18000 },
-  ];
+  // Historical data will be populated by user input
 
   const generatePredictions = () => {
     const base = parseFloat(currentRevenue) || 50000;
@@ -144,23 +136,13 @@ const PredictiveInsights = () => {
         }
       } catch (parseError) {
         console.error('Error parsing trends data:', parseError);
-        // Fallback to sample data
-        setMarketTrends([
-          { sector: `${businessType} Industry`, trend: "up", change: "+8.5%", confidence: "medium", insight: "Showing positive growth trends" },
-          { sector: "Consumer Demand", trend: "up", change: "+12.3%", confidence: "high", insight: "Strong consumer interest in your sector" },
-          { sector: "Digital Transformation", trend: "up", change: "+15.7%", confidence: "high", insight: "Accelerated digital adoption" },
-          { sector: "Market Competition", trend: "stable", change: "+2.1%", confidence: "medium", insight: "Stable competitive landscape" },
-        ]);
+        // No fallback data - require API for real market trends
+        console.log('Unable to parse market trends data');
       }
     } catch (error) {
       console.error('Error fetching market trends:', error);
-      // Fallback to relevant sample data
-      setMarketTrends([
-        { sector: `${businessType} Industry`, trend: "up", change: "+8.5%", confidence: "medium", insight: "Showing positive growth trends" },
-        { sector: "Consumer Demand", trend: "up", change: "+12.3%", confidence: "high", insight: "Strong consumer interest in your sector" },
-        { sector: "Digital Transformation", trend: "up", change: "+15.7%", confidence: "high", insight: "Accelerated digital adoption" },
-        { sector: "Market Competition", trend: "stable", change: "+2.1%", confidence: "medium", insight: "Stable competitive landscape" },
-      ]);
+      // Show error message instead of fallback data
+      console.error('Failed to fetch market trends - API key required');
     } finally {
       setLoadingTrends(false);
     }
