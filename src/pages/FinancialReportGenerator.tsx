@@ -13,17 +13,6 @@ const FinancialReportGenerator = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Header */}
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Dashboard
-            </Button>
-          </div>
 
           <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
             <CardHeader className="text-center space-y-4">
@@ -35,7 +24,8 @@ const FinancialReportGenerator = () => {
                   Financial Report Generator
                 </CardTitle>
                 <p className="text-muted-foreground text-lg mt-2">
-                  Create comprehensive financial reports with charts and analytics
+                  Create comprehensive financial reports with charts and
+                  analytics
                 </p>
               </div>
             </CardHeader>
