@@ -165,6 +165,36 @@ export const FINANCIAL_TOOLS: Omit<Tool, 'onAction'>[] = [
     category: "Collaboration",
     gradient: "bg-gradient-to-br from-indigo-500 to-purple-600", 
     actionLabel: "Join Beta",
+  },
+  {
+    icon: CreditCard,
+    title: "Ecommerce Profit Calculator",
+    description: "Calculate profit margins, break-even points, and revenue projections for your online store",
+    status: "available",
+    features: [
+      "Product margin analysis",
+      "Shipping cost calculation",
+      "Break-even analysis",
+      "Revenue forecasting",
+    ],
+    category: "Ecommerce",
+    gradient: "bg-gradient-to-br from-pink-500 to-rose-600",
+    actionLabel: "Calculate Profit",
+  },
+  {
+    icon: TrendingUp,
+    title: "Retirement Planning",
+    description: "Plan your retirement with compound interest calculations and savings projections",
+    status: "available",
+    features: [
+      "Retirement age calculator",
+      "Savings projections",
+      "Compound interest",
+      "Goal tracking",
+    ],
+    category: "Planning",
+    gradient: "bg-gradient-to-br from-amber-500 to-orange-600",
+    actionLabel: "Plan Retirement",
   }
 ];
 
@@ -179,5 +209,7 @@ export const TOOL_ROUTES: Record<string, string> = {
   "Predictive Intelligence": "/predictive-insights",
   "Advanced Profit/Loss Calculator": "/profit-loss-calculator",
   "API Integration": "/api-docs",
-  "Team Management": "/dashboard", // fallback
+  "Team Management": "/dashboard",
+  "Ecommerce Profit Calculator": "/ecommerce-calculator",
+  "Retirement Planning": "/retirement-planner",
 };

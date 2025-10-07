@@ -19,6 +19,8 @@ import PricingCalculator from "./pages/PricingCalculator";
 import PredictiveInsights from "./pages/PredictiveInsights";
 import ValuationTool from "./pages/ValuationTool";
 import InvestmentTracker from "./pages/InvestmentTracker";
+import EcommerceCalculator from "./pages/EcommerceCalculator";
+import RetirementPlanner from "./pages/RetirementPlanner";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +57,8 @@ const App = () => (
             />
             <Route path="/valuation-tool" element={<ValuationTool />} />
             <Route path="/investment-tracker" element={<InvestmentTracker />} />
+            <Route path="/ecommerce-calculator" element={<EcommerceCalculator />} />
+            <Route path="/retirement-planner" element={<RetirementPlanner />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/get-started" element={<GetStarted />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
